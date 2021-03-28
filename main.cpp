@@ -1,4 +1,3 @@
-
 #include "cabeceras.h"
 #include<fstream>
 int main()
