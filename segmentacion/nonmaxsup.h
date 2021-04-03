@@ -1,3 +1,4 @@
+
 Matrix  nonmaxsup(double**inimage,int rows_inimage,int cols_inimage,double** orient,int rows_orient,int cols_orient,double radius){
 
 double iradius = ceil(radius);
@@ -5,7 +6,7 @@ double xoff[181];
 double yoff[181];
 double hfrac[181];
 double vfrac[181];
-Matrix resultado = doubleMatrix(rows_inimage, cols_inimage);
+Matrix resultado = newDoubleMatrix(rows_inimage, cols_inimage);
 
 for (int i = 0; i <= 180; ++i)
 {

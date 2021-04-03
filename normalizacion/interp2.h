@@ -150,8 +150,7 @@ double **interp2(IntMatrix x, IntMatrix y, Matrix img,
 
 				if ((ZI[i][j]<X[0])||(xo[i][j]>X[sizeImgCol-1])|| (yo[i][j]<Y[0])||(yo[i][j]>Y[sizeImgRow-1]))
 				{
-					ZI[i][j]=-1;
-					printf("hola...\n");
+					ZI[i][j]=0;
 				}
 			
 			}

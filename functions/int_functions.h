@@ -8,6 +8,7 @@
 #include <vector>
 typedef int **IntMatrix;
 typedef int *IntVector;
+typedef int ***IntMatrix3D;
 void WritwResult(IntMatrix ,int , int );
 void deleteIntMatrix(IntMatrix mat, int row){
 	/*
@@ -264,6 +265,15 @@ IntMatrix vect2mat(IntVector vect,int sizeVect, int nCols){
 }
 
 IntMatrix sub2ind2D(IntMatrix matdata, int row, int col, IntMatrix matindex, int indexrow, int indexcol){
+	/*
+	**	matdata: matriz que contiene los datos
+	**  row: número de filas de matdat
+	**  col: columnas de matadata
+	**  matindex: matriz de indices
+	**  indexrow: filas de la matriz indice
+	**  indexcol: columnas de la matriz
+	**  Nota: Esta función retorna los valores de los indices encontrados. 
+	*/
 	IntVector vect_matdata=mat2vect(matdata,row,col);
 	IntVector vect_index=mat2vect(matindex,indexrow,indexcol);
 	IntVector values=newIntVector(indexcol*indexrow);
@@ -283,7 +293,13 @@ IntMatrix sub2ind2D(IntMatrix matdata, int row, int col, IntMatrix matindex, int
 
 void  valInd(IntVector vect, int length , IntMatrix &mat, int row, int col){
 	/*
-	** vect(mat);
+	**  en matlab vect(mat);
+	** vect: vector de datos
+	** length: tamaño del vector
+	** mat: Matriz de indices
+	** row: filas de las matrices
+	** col: número de columnas de la matriz
+	** Nota: esta función retorna una matriz con los valores encontrados en el vector de acuerdo al indice de la matriz
 	*/
 	for (int i = 0; i < row; ++i)
 	{
@@ -304,6 +320,12 @@ void  valInd(IntVector vect, int length , IntMatrix &mat, int row, int col){
 }
 
 IntMatrix cpIntMatrix(IntMatrix mat, int row, int col){
+	/*
+	** mat: matriz de datos origen
+	** row: número de filas de la matriz
+	** col: número de columnas de la matriz
+	** Nota: Esta función retorna la una copia de la matriz mat.
+	*/
 	IntMatrix result=newIntMatrix(row,col);
 	for (int i = 0; i < row; ++i)
 	{
@@ -317,17 +339,29 @@ IntMatrix cpIntMatrix(IntMatrix mat, int row, int col){
 
 }
 
+void deleteIntMatrix3D(IntMatrix3D mat, int row, int col){
+	for (int i = 0; i < row; ++i)
+	{
+		for (int j = 0; j < col; ++j)
+		{
+			delete[]mat[i][j];
+		}
 
+		delete[]mat[i];
+	}
 
+	delete[]mat;
 
+}
 
+/* Funciones temporales solo con funes de ver los resultados*/
 
 void printIntMatrix(IntMatrix mat, int row, int col){
 	for (int i = 0; i < row; ++i)
 	{
 		for (int j = 0; j < col; ++j)
 		{
-			printf("%d\t",mat[i][j] );
+			printf("%d,\t",mat[i][j] );
 		}
 		printf("\n");
 	}

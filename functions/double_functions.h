@@ -9,6 +9,11 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include "stb_image.h"
+extern "C" {
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+}
 typedef double **Matrix;
 typedef double *Vector;
 
@@ -189,6 +194,52 @@ Vector diff(Vector vect, int length){
 
 	return result;
 }
+
+Matrix getDoubleRows(Matrix img, int i, int sizeRow){
+	/*
+	** img: matriz de datos de las que se va a extraer la fila
+	** sizerRow: el número de elementos que tiene la fila.
+	** Nota: esta función retorna Matriz de 2D con todos los elementos de la fila especificada,
+	**        agregando una columna mas de 0.
+	*/
+	Matrix rows=newDoubleMatrix(sizeRow,2);
+	for (int j = 0; j < sizeRow; ++j)
+	{
+		rows[j][0]=img[i][j];
+	}
+	return rows;
+}
+
+// Matrix FFT(Matrix img, int row, int col){
+	
+// 	for (int i = 0; i < row; ++i)
+// 	{
+// 		for (int j = 0; j < col; ++j)
+// 		{
+			
+// 		}
+// 	}
+
+// }
+
+Matrix loadImage(char const *nombre_img, int &sizeImgRow,int &sizeImgCol){
+	int n;
+	unsigned char *data = stbi_load(nombre_img, &sizeImgCol, &sizeImgRow, &n, 1);
+	Matrix img=newDoubleMatrix(sizeImgRow,sizeImgCol);
+	int cont=0;
+
+	for (int i=0;i<sizeImgRow;i++){
+	for (int j=0;j<sizeImgCol;j++){ 
+	*(*(img+i)+j)=double(*(data+cont));
+	cont++;
+	}
+	}
+
+	stbi_image_free(data);
+
+	return img;
+
+} 
 
 
 // Funciones temporales solo para test 

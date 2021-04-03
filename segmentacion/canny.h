@@ -1,3 +1,4 @@
+//#define PI 3.14159265358979
 
 //S[gradient, or] = canny(im, sigma, scaling, xscaling, yscaling)
 void canny(double** im,double ** &mat_gradiente,double ** &mat_or, int row_im,int col_im, double scaling,double xscaling,double yscaling){
@@ -23,6 +24,8 @@ for (int i = 0; i < tammatgaus; ++i)
 }
 
 im=filter2(im, MGauss,row_im, col_im, tammatgaus);
+
+deleteDoubleMatrix(MGauss,tammatgaus);
 ////////////////
 int tam_filas=row_im;
 int tam_columnas=col_im;

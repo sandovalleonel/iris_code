@@ -1,17 +1,14 @@
 #include<fstream>
 
-int ** hysthresh(double** img, int rows_img, int cols_img, double T1, double T2){
-	int ** mat_bin = enteroMatrix(rows_img,cols_img);
+IntMatrix hysthresh(double** img, int rows_img, int cols_img, double T1, double T2){
+	IntMatrix mat_bin = newIntMatrix(rows_img,cols_img);
 	int rc = rows_img * cols_img;
 	int rcmr = rc - rows_img;
 	int rp1 = rows_img + 1;
 	int cont = 0;
-	double *bw = new double[rc];
+	Vector bw = newDoubleVector(rc);
 	std::vector<int> pix; 
-	int *stack = new int[rc];
-
-	
-
+	IntVector stack = newIntVector(rc);
 
 	for (int i = 0; i < cols_img; ++i)
 	{
@@ -94,6 +91,8 @@ for (int i = 0; i < rc; ++i)
 
 }
 
+deleteDoubleVector(bw);
+deleteIntVector(stack);
 return mat_bin;
 
 }

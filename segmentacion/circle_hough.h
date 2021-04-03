@@ -1,21 +1,21 @@
-void detectar_circulo(int** matimg,int numer_filas,int numero_columnas,int minr,int maxr){
-	
-int recortex = numero_columnas * 0.25;//opcional reducir columanas o dejar recortex=0;
-int recortey = numer_filas * 0.25;   //opcional reducir filas o dejar recortey=0;
-int dimZ = int(maxr - minr + 1);
+IntVector detectar_circulo(int** matimg,int numer_filas,int numero_columnas,int minr,int maxr){
+			IntVector result=newIntVector(3);	
+			int recortex = numero_columnas * 0.25;//opcional reducir columanas o dejar recortex=0;
+			int recortey = numer_filas * 0.25;   //opcional reducir filas o dejar recortey=0;
+			int dimZ = int(maxr - minr + 1);
 
-int ***accum;  
+			int ***accum;  
 
-accum = new int**[numer_filas];
-for(int x = 0; x < numer_filas; ++x) {
-    accum[x] = new int*[numero_columnas];
-    for(int y = 0; y < numero_columnas; ++y) {
-        accum[x][y] = new int[dimZ];
-        for(int z = 0; z < dimZ; ++z) { 
-      accum[x][y][z] = 0;
-        }
-    }
-}
+			accum = new int**[numer_filas];
+			for(int x = 0; x < numer_filas; ++x) {
+			    accum[x] = new int*[numero_columnas];
+			    for(int y = 0; y < numero_columnas; ++y) {
+			        accum[x][y] = new int[dimZ];
+			        for(int z = 0; z < dimZ; ++z) { 
+			      accum[x][y][z] = 0;
+			        }
+			    }
+			}
 
 		int maximo=0;
 		int r=0;
@@ -55,7 +55,10 @@ for(int x = 0; x < numer_filas; ++x) {
 			}
 		}
 	}
+	deleteIntMatrix3D(accum,numer_filas,numero_columnas);
 //////imrpimr imrprime x,y,r,maximo
-std::cout<<"<<imprecion del archivo cicle_hough.h>>  "<<ejey+1<<" , "<<ejex+1<<" "<<r-1<<" maximo "<<maximo<<std::endl;
+//std::cout<<"<<imprecion del archivo cicle_hough.h>>  "<<ejey+1<<" , "<<ejex+1<<" "<<r-1<<" maximo "<<maximo<<std::endl;
+result[0]=ejex+1;result[1]=ejey+1;result[2]=r-1;
+return result;
 
 }
