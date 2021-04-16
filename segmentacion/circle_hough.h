@@ -31,7 +31,7 @@ IntVector detectar_circulo(int** matimg,int numer_filas,int numero_columnas,int 
 			for (int rad = minr; rad < maxr; ++rad)
 			{
 				if (*(*(matimg+y)+x)==1){
-				for (int theta = 1; theta <= 360; theta+=2)//opcional realizar saltos de 2 en dos o dejar ++theta
+				for (int theta = 1; theta <= 360; theta+=4)//opcional realizar saltos de 2 en dos o dejar ++theta
 				{
 					int xdash=round(rad * std::cos(theta * PI / 180));
 					int ydash=round(rad * std::sin(theta * PI / 180));
@@ -45,19 +45,19 @@ IntVector detectar_circulo(int** matimg,int numer_filas,int numero_columnas,int 
 
                       		if (maximo < accum[indice1][indice2][indice3]){
 							    r=indice3+minr;
-								ejex=indice1;
-								ejey=indice2;
+								ejey=indice1;
+								ejex=indice2;
 								maximo=accum[indice1][indice2][indice3];
 							}
                       }
-				}
+			}
 			}
 			}
 		}
 	}
 	deleteIntMatrix3D(accum,numer_filas,numero_columnas);
 //////imrpimr imrprime x,y,r,maximo
-//std::cout<<"<<imprecion del archivo cicle_hough.h>>  "<<ejey+1<<" , "<<ejex+1<<" "<<r-1<<" maximo "<<maximo<<std::endl;
+//std::cout<<"<<imprecion del archivo cicle_hough.h>>  "<<ejex+1<<" , "<<ejey+1<<" "<<r-1<<" maximo "<<maximo<<std::endl;
 result[0]=ejex+1;result[1]=ejey+1;result[2]=r-1;
 return result;
 

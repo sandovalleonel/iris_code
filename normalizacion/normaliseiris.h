@@ -78,6 +78,7 @@ for (int i = 0; i < radpixels; ++i)
 	for (int j = 0; j < angulardiv; ++j)
 	{
 		resultado_ZI[i][j]=resultado_ZI[i][j]/255;
+		//printf("%lf\n",resultado_ZI[i][j] );
 	}
 }
 

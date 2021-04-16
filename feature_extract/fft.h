@@ -2,9 +2,9 @@
 #include <iostream>
 #include <cmath>
 
-Matrix computeDft( double ** mat_input,int row_mat ) 
+void computeDft( double ** mat_input,double** &mat_output,int row_mat ) 
 {
-    Matrix mat_output=newDoubleMatrix(row_mat,2);
+    //Matrix mat_output=newDoubleMatrix(row_mat,2);
     int n = row_mat;
     for (int k = 0; k < n; k++) {  
         double sumreal = 0;
@@ -16,16 +16,18 @@ Matrix computeDft( double ** mat_input,int row_mat )
         }
         mat_output[k][0] = sumreal;
         mat_output[k][1] = sumimag;
+
+        
     }
-    deleteDoubleMatrix(mat_input,row_mat);
-   return mat_output;
+    //deleteDoubleMatrix(mat_input,row_mat);
+   //return mat_output;
 }
 
-void computeIDft( double ** mat_input,Matrix &mat_ouput,int row_mat )
+void computeIDft( double ** mat_input,double** &mat_ouput,int row_mat )
 {
     Matrix aux_fft = newDoubleMatrix(row_mat,2);
 
-     aux_fft =computeDft(mat_input,row_mat);
+    computeDft(mat_input,aux_fft,row_mat);
     int tam_vec = row_mat;
         
         mat_ouput[0][0]=(aux_fft [0][0] / tam_vec);
