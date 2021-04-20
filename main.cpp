@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])
 
 
 	DIR *dir; struct dirent *diread;
-    const char* path ="/home/leonel/Descargas/CASIA-Iris-Lamp/005/R/";
+    const char* path ="/home/leonel/iris_code/img/";
             
     if ((dir = opendir(path)) != nullptr) {
         while ((diread = readdir(dir)) != nullptr) {
@@ -26,37 +26,41 @@ int main(int argc, char const *argv[])
             {
 
             std::string val=path+name_file; 
-    Matrix img_general=loadImage(val.c_str(),imgRow,imgCol);
-        // std::cout<<val<<std::endl;  
-   	Matrix img=loadImage(val.c_str(),imgRow,imgCol);
-	Matrix mat_gradient=newDoubleMatrix(imgRow,imgCol);
-	Matrix mat_or=newDoubleMatrix(imgRow,imgCol);
-	canny(img,mat_gradient,mat_or,imgRow,imgCol,1,1,1);
-	adjgamma(img,imgRow,imgCol,1.5);
-	Matrix i4=nonmaxsup(mat_gradient,imgRow,imgCol, mat_or,imgRow,imgCol, 1.5);
-	IntMatrix final=hysthresh(i4,imgRow,imgCol,0.23, 0.19);
-	int r_min = 28;
-	int r_max = 75;
-	IntVector pcoor=detectar_circulo(final,imgRow,imgCol,33,54);
-	int x=20;
-	int y=240;
-	
 
+int imgRow,imgCol;//,xcenter,ycenter,rmin,rmax;
+	float *auximg=loadImage2(val.c_str(),imgRow,imgCol);
+	int outrow=imgRow,
+	    outcol=imgCol;
+    scaling(outrow,outcol,400);
+    Matrix img=imgResize(auximg,imgRow,imgCol,outrow,outcol);
+
+	/* First  step  segmentation*/
+	Matrix mat_gradient=newDoubleMatrix(outrow,outcol);
+	Matrix mat_or=newDoubleMatrix(outrow,outcol);
+	canny(img,mat_gradient,mat_or,outrow,outcol,1,1,1);
+    adjgamma(mat_gradient,outrow,outcol,1.5);           //gama casia 2.2
+
+	Matrix i4=nonmaxsup(mat_gradient,outrow,outcol, mat_or,outrow,outcol, 1.5); //original 1.5
+
+	//WritwResult2(i4,outrow,outcol);
+	IntMatrix final=hysthresh(i4,outrow,outcol,0.23, 0.19); // original 0,23 0,19
+
+   WritwResult(final,outrow,outcol);
+   //writeImage(final,outrow,outcol);
+
+	int r_min = 10;//10;//33//28
+	int r_max = 100;//25;//54//75
+	IntVector pcoor=detectar_circulo(final,outrow,outcol,r_min,r_max);
+
+
+	/* Second step normalization*/
 	//Matrix normalise= normaliseiris(img_general,imgRow,imgCol,pcoor[0],pcoor[1],pcoor[2],pcoor[0],pcoor[1] ,2*pcoor[2],x,y);
 
 
 	//gaborconvolve(normalise,x,y,1,2,2,2);
 
 
-	//printf("tamaño de la imagen %d %d\n",imgRow,imgCol);
-	//printf("Ejecución exiosa .....\n");
-	deleteDoubleMatrix(img,imgRow);
-	deleteDoubleMatrix(img_general,imgRow);
-	deleteDoubleMatrix(mat_gradient,imgRow);
-	deleteDoubleMatrix(mat_or,imgRow);
-	deleteDoubleMatrix(i4,imgRow);
-	deleteIntMatrix(final, imgRow);
-	deleteIntVector(pcoor);
+   
 	
             }
         }
@@ -65,10 +69,10 @@ int main(int argc, char const *argv[])
 
 
 
-	/* Second step normalization*/
+
 
 	
-	//
+
 
 
 	//

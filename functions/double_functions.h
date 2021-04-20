@@ -13,6 +13,10 @@
 extern "C" {
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#define STB_IMAGE_RESIZE_IMPLEMENTATION
+#include "stb_image_resize.h"
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
 }
 typedef double **Matrix;
 typedef double *Vector;
@@ -221,6 +225,54 @@ Matrix getDoubleRows(Matrix img, int i, int sizeRow){
 // 	}
 
 // }
+Vector mat2vectD(Matrix mat, int sizerow, int sizecol ){
+	/*
+	** mat: Matriz 2-D que contiene datos que van a ser pasados a un vector 1-D
+	** sizerow: Número de filas de la matriz
+	** sizecol: Número de columnas de la matriz
+	** NOTA: Esta función retorna un vector con todos los datos de la matriz (Mathlab: matriz(:))  
+	*/
+	int length=sizecol*sizerow;
+	Vector vect=newDoubleVector(length);
+	int cont=0;
+	for (int i = 0; i < sizecol; ++i)
+	{
+		for (int j = 0; j < sizerow; j++)
+		{
+			*(vect+cont)=*(*(mat+j)+i);
+			cont++;
+		}
+	}
+
+	return vect;
+
+}
+
+Matrix vect2matD(Vector vect,int sizeVect, int nCols){
+	/*
+	** vect: Vector 1-D que tiene los datos que van a ser colocados en una matriz 2-D
+	** sizeVect: Tamaño del vector de datos.
+	** nCols: El número de columnas que se necesita
+	** NOTA: Esta función retorna una matriz transpuesta.
+	*/
+	Matrix mat;
+	int nrows=nCols,cont=0;
+	if (sizeVect % nCols==0)
+	{
+		nCols=sizeVect/nrows;
+		mat=newDoubleMatrix( nrows,nCols);
+		for (int i = 0; i < nCols; i++)
+		{
+			for (int j = 0; j < nrows; j++)
+			{
+				*(*(mat+j)+i)=*(vect+cont);
+				cont++;
+			}
+
+		}
+	}
+	return mat;
+}
 
 Matrix loadImage(char const *nombre_img, int &sizeImgRow,int &sizeImgCol){
 	int n;
@@ -241,6 +293,44 @@ Matrix loadImage(char const *nombre_img, int &sizeImgRow,int &sizeImgCol){
 
 } 
 
+float *loadImage2(char const *nombre_img, int &sizeImgRow,int &sizeImgCol){
+	int n;
+	unsigned char *data = stbi_load(nombre_img, &sizeImgCol, &sizeImgRow, &n, 1);
+	float *img=new float[sizeImgRow*sizeImgCol];
+	//int cont=0;
+
+	for (int i=0;i<sizeImgRow*sizeImgCol;i++){
+	  img[i]=float(data[i]);
+	}
+
+	stbi_image_free(data);
+
+	return img;
+
+} 
+
+char  *int2char(int **data, int row, int col){
+	char *img=new char[row*col];
+	int cont=0;
+	for (int i = 0; i < row; ++i)
+	{
+		for (int j = 0; j < col; ++j)
+		{
+			img[cont]=char(data[i][j]*255);
+			cont++;
+		}
+		/* code */
+	}
+	return img;
+
+}
+
+void writeImage(int **img, int row, int col){
+	char *imgs=int2char(img,row,col);
+	stbi_write_jpg("result.jpg",col,row,1,imgs,100);
+	stbi_image_free(imgs);
+
+}
 
 // Funciones temporales solo para test 
 void printMatrix(Matrix mat, int row, int col){
@@ -261,6 +351,50 @@ void printVector(Vector v,int length){
 		printf("%lf\n",v[i] );
 	}
 
+}
+
+
+float * double2float(Vector vect,int length){
+	float * result=new float[length];
+   for (int i = 0; i < length; ++i)
+   {
+   		result[i]=float(vect[i]);
+   }
+   return result;
+}
+//--------------------------------------------------
+Vector float2Double(float * vect,int length){
+  	Vector result=newDoubleVector(length);
+  	for(int i=0;i<length;i++){
+  		result[i]=double(vect[i]);
+  	}
+  	return result;
+}
+
+Matrix vect2matN(Vector vect,int nRow ,int nCols){
+	
+	Matrix mat=newDoubleMatrix(nRow,nCols);
+	int cont=0;
+	for (int i = 0; i < nRow; ++i)
+	{
+		for (int j = 0; j < nCols; ++j)
+		{
+			mat[i][j]=vect[cont];
+			cont++;
+		}
+	}
+
+	return mat;
+}
+
+Matrix imgResize(float *img, int row,int col,int outrow,int outcol){
+	float *result=new float[outrow*outcol];
+	stbir_resize_float(img,col,row,0,result,outcol,outrow,0,1);
+    Vector aux2=float2Double(result,outrow*outcol);
+	Matrix resize=vect2matN(aux2,outrow,outcol);
+	deleteDoubleVector(aux2);
+	stbi_image_free(result);
+	return resize;
 }
 // void printResult(Matrix mat){
 // 	std::ofstream fichero("test.csv");

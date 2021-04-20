@@ -1,63 +1,127 @@
 IntVector detectar_circulo(int** matimg,int numer_filas,int numero_columnas,int minr,int maxr){
-			IntVector result=newIntVector(3);	
-			int recortex = numero_columnas * 0.25;//opcional reducir columanas o dejar recortex=0;
-			int recortey = numer_filas * 0.25;   //opcional reducir filas o dejar recortey=0;
+			IntVector result=newIntVector(3);
+			float reduccion_filas_columnas = 0.2;
+			short int recorte_theta=2;
+
+			short int recortex = numero_columnas * reduccion_filas_columnas;//opcional reducir columanas o dejar recortex=0;
+			short int recortey = numer_filas * reduccion_filas_columnas;   //opcional reducir filas o dejar recortey=0;
 			int dimZ = int(maxr - minr + 1);
 
-			int ***accum;  
+			short int ***accum;  
 
-			accum = new int**[numer_filas];
-			for(int x = 0; x < numer_filas; ++x) {
-			    accum[x] = new int*[numero_columnas];
-			    for(int y = 0; y < numero_columnas; ++y) {
-			        accum[x][y] = new int[dimZ];
-			        for(int z = 0; z < dimZ; ++z) { 
+			accum = new short int**[numer_filas];
+			for(short int x = 0; x < numer_filas; ++x) {
+			    accum[x] = new short int*[numero_columnas];
+			    for(short int y = 0; y < numero_columnas; ++y) {
+			        accum[x][y] = new short int[dimZ];
+			        for(short int z = 0; z < dimZ; ++z) { 
 			      accum[x][y][z] = 0;
 			        }
 			    }
 			}
 
-		int maximo=0;
-		int r=0;
-		int ejex=0;
-		int ejey=0;
+		short int maximo=0;
+		short int r=0;
+		short int ejex=0;
+		short int ejey=0;
+
+
+	float  *veccos=new float[360];
+	float  *vecsin=new float[360];
 
 
 
-	for (int x = recortex; x < numero_columnas - recortex ; ++x)
+
+
+
+for (short int i = 1; i <= 360; i+=recorte_theta)
+{
+	veccos[i] = cos(i*PI/180);
+	vecsin[i] = sin(i*PI/180);
+}
+
+
+short int indice1=0;
+short int indice2=0;
+short int indice3=0;
+	for (short int x = recortex; x < numero_columnas - recortex ; ++x)
 	{
-		for (int y = recortey; y < numer_filas - recortey; ++y)
+		for (short int y = recortey; y < numer_filas - recortey; ++y)
 		{
-			for (int rad = minr; rad < maxr; ++rad)
+			for (short int rad = minr; rad < maxr; ++rad)
 			{
 				if (*(*(matimg+y)+x)==1){
-				for (int theta = 1; theta <= 360; theta+=4)//opcional realizar saltos de 2 en dos o dejar ++theta
+				for (short int theta = 1; theta <= 360; theta+=recorte_theta)
 				{
-					int xdash=round(rad * std::cos(theta * PI / 180));
-					int ydash=round(rad * std::sin(theta * PI / 180));
+					  indice2=(veccos[theta] * rad)+x; 
+					  indice1=(vecsin[theta] * rad)+y; 
+					if (((indice2)<numero_columnas)&&((indice2)>0)&&((indice1)<numer_filas)&&((indice1)>0)){
+						  indice3 = (rad-minr+1);
+			              accum[indice1][indice2][indice3] = accum[indice1][indice2][indice3] + 1;
 
-					if (((x+xdash)<numero_columnas)&&((x+xdash)>0)&&((y+ydash)<numer_filas)&&((y+ydash)>0)){
-						int indice1 = (y+ydash);
-						int indice2 = (x+xdash);
-						int indice3 = (rad-minr+1);
-	
-			           accum[indice1][indice2][indice3] = accum[indice1][indice2][indice3] + 1;
-
-                      		if (maximo < accum[indice1][indice2][indice3]){
-							    r=indice3+minr;
-								ejey=indice1;
-								ejex=indice2;
-								maximo=accum[indice1][indice2][indice3];
-							}
                       }
 			}
 			}
 			}
 		}
 	}
+
+
+
+
+
+
+for (short int x = 0; x < numer_filas; ++x)
+{
+	for (short int y = 0; y < numero_columnas; ++y)
+	{
+		for (short int z = 0; z < dimZ; ++z)
+		{
+			if (maximo < accum[x][y][z]){
+							    r=z;
+								ejey=x;
+								ejex=y;
+								maximo=accum[x][y][z];
+							}
+		}
+	}
+}
+
+/*******************************/
+//buscar el segundo circulo
+int radio2=0;
+int ejey2=0;
+int ejex2=0;
+int maximo2=0;
+for (short int z = 0; z < dimZ; ++z)
+{
+	if (r!=z )
+	{
+		
+		for (short int x = 0; x < numer_filas; ++x)
+		{
+			for (short int y = 0; y < numero_columnas; ++y)
+			{
+				
+					if (maximo2 < accum[x][y][z] ){
+									    radio2=z;
+										ejey2=x;
+										ejex2=y;
+										maximo2=accum[x][y][z];
+					}
+			}
+		}
+	}
+}
+radio2=radio2+minr;
+printf("Segundo circulo temporal:. %d, %d, %d maximo %d\n",ejex2,ejey2,radio2,maximo2 );
+/*******************************/
+
+
+	r= r+minr;
 	deleteIntMatrix3D(accum,numer_filas,numero_columnas);
 //////imrpimr imrprime x,y,r,maximo
-//std::cout<<"<<imprecion del archivo cicle_hough.h>>  "<<ejex+1<<" , "<<ejey+1<<" "<<r-1<<" maximo "<<maximo<<std::endl;
+std::cout<<"<<imprecion del archivo cicle_hough.h>>  "<<ejex+1<<" , "<<ejey+1<<" "<<r<<" maximo "<<maximo<<std::endl;
 result[0]=ejex+1;result[1]=ejey+1;result[2]=r-1;
 return result;
 

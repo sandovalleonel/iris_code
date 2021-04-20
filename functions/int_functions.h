@@ -10,6 +10,25 @@ typedef int **IntMatrix;
 typedef int *IntVector;
 typedef int ***IntMatrix3D;
 void WritwResult(IntMatrix ,int , int );
+
+void scaling(int &row, int &col, int maxscal){
+    float p=0.0; 
+	if (row>col)
+	{
+		p=(100*maxscal)/row;
+		row=maxscal;
+		col=round(col*(p/100));
+	}else if (col>row)
+	{
+		p=(100*maxscal)/col;
+		col=maxscal;
+		row=round(row*(p/100));
+	}else if (col==row)
+	{
+		row=maxscal;
+		col=maxscal;
+	}
+}
 void deleteIntMatrix(IntMatrix mat, int row){
 	/*
 	** Mat: matriz de tipo double que va ser liberado de memoria.
@@ -339,10 +358,10 @@ IntMatrix cpIntMatrix(IntMatrix mat, int row, int col){
 
 }
 
-void deleteIntMatrix3D(IntMatrix3D mat, int row, int col){
-	for (int i = 0; i < row; ++i)
+void deleteIntMatrix3D(short int*** mat, int row, int col){
+	for (short int i = 0; i < row; ++i)
 	{
-		for (int j = 0; j < col; ++j)
+		for (short int j = 0; j < col; ++j)
 		{
 			delete[]mat[i][j];
 		}
