@@ -1,7 +1,7 @@
 //#define PI 3.14159265358979
 
 //S[gradient, or] = canny(im, sigma, scaling, xscaling, yscaling)
-void canny(double** im,double ** &mat_gradiente,double ** &mat_or, int row_im,int col_im, double scaling,double xscaling,double yscaling){
+void canny(double** im,double ** &mat_gradiente,double ** &mat_or, int row_im,int col_im){
 
 double MGauss_aux[5][5]={
 {0.0318, 0.0375, 0.0397, 0.0375, 0.0318},

@@ -1,6 +1,6 @@
-IntVector detectar_circulo(int** matimg,int numer_filas,int numero_columnas,int minr,int maxr){
+IntVector detectar_circulo(int** matimg,int numer_filas,int numero_columnas,int minr,int maxr, float reduccion = 0){
 			IntVector result=newIntVector(3);
-			float reduccion_filas_columnas = 0.2;
+			float reduccion_filas_columnas = reduccion;
 			short int recorte_theta=2;
 
 			short int recortex = numero_columnas * reduccion_filas_columnas;//opcional reducir columanas o dejar recortex=0;
@@ -87,41 +87,11 @@ for (short int x = 0; x < numer_filas; ++x)
 	}
 }
 
-/*******************************/
-//buscar el segundo circulo
-int radio2=0;
-int ejey2=0;
-int ejex2=0;
-int maximo2=0;
-for (short int z = 0; z < dimZ; ++z)
-{
-	if (r!=z )
-	{
-		
-		for (short int x = 0; x < numer_filas; ++x)
-		{
-			for (short int y = 0; y < numero_columnas; ++y)
-			{
-				
-					if (maximo2 < accum[x][y][z] ){
-									    radio2=z;
-										ejey2=x;
-										ejex2=y;
-										maximo2=accum[x][y][z];
-					}
-			}
-		}
-	}
-}
-radio2=radio2+minr;
-printf("Segundo circulo temporal:. %d, %d, %d maximo %d\n",ejex2,ejey2,radio2,maximo2 );
-/*******************************/
-
 
 	r= r+minr;
 	deleteIntMatrix3D(accum,numer_filas,numero_columnas);
 //////imrpimr imrprime x,y,r,maximo
-std::cout<<"<<imprecion del archivo cicle_hough.h>>  "<<ejex+1<<" , "<<ejey+1<<" "<<r<<" maximo "<<maximo<<std::endl;
+//std::cout<<"<<imprecion del archivo cicle_hough.h>>  "<<ejex+1<<" , "<<ejey+1<<" "<<r<<" maximo "<<maximo<<std::endl;
 result[0]=ejex+1;result[1]=ejey+1;result[2]=r-1;
 return result;
 

@@ -325,9 +325,9 @@ char  *int2char(int **data, int row, int col){
 
 }
 
-void writeImage(int **img, int row, int col){
+void writeImage(int **img, int row, int col,const char* name){
 	char *imgs=int2char(img,row,col);
-	stbi_write_jpg("result.jpg",col,row,1,imgs,100);
+	stbi_write_jpg(name,col,row,1,imgs,100);
 	stbi_image_free(imgs);
 
 }

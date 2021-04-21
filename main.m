@@ -1,20 +1,19 @@
 clc;clear;close all;
 
 
-im1=csvread("test.csv");
-imshow(im1)
-%interno 126 , 96 16
-%externo 122,97 ,37
-%359 , 268 22
-x=182;
-y=100;
-r=13;
+im1=imread("2.jpg");
+imshow(uint8(im1))
+
+
+x=100;
+y=113;
+r=12;
 hold on
-plot(x,y,'*')
-plot(x+r,y,'*')
-plot(x-r,y,'*')
-plot(x,y+r,'*')
-plot(x,y-r,'*')
+plot(x,y,'*r')
+plot(x+r,y,'*r')
+plot(x-r,y,'*r')
+plot(x,y+r,'*r')
+plot(x,y-r,'*r')
 return
 %%%%%%%%%%%%x=columnas
 %240 100%
@@ -58,3 +57,6 @@ r2=43;
 plot(x2,y2,'*');
 plot(x2,y2+r2,'*');
 plot(x2,y2+r2,'*');
+
+
+
