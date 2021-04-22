@@ -1,13 +1,12 @@
 clc;clear;close all;
 
 
-im1=imread("2.jpg");
+im1=imread("img/img2.jpeg");
 imshow(uint8(im1))
 
-
-x=100;
-y=113;
-r=12;
+x=252+4;
+y=678+7;
+r=16;
 hold on
 plot(x,y,'*r')
 plot(x+r,y,'*r')

@@ -440,3 +440,15 @@ void WritwResultV(int *mat,int row){
 		printf("Impresion finalizado ......");
         fichero.close();
 }
+
+int reestablecer_escala_x_y(int valordePcoor,int tam_filcol_matredim,int  tam_filcol_matreOriginal){
+	float auxx = (valordePcoor * 100)/tam_filcol_matredim;	
+	float x = round(tam_filcol_matreOriginal * (auxx/100));
+	return int(x);
+}
+
+int reestablecer_escala_radio(int radioPcoor,int tam_fil_matredim,int tam_fil_Matoriginal){
+	float auxr = (tam_fil_matredim * 100)/tam_fil_Matoriginal;
+	float r = round((radioPcoor * 100)/auxr);
+	return int(r);
+}

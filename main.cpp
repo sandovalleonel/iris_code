@@ -30,7 +30,7 @@ int main(int argc, char const *argv[])
 				int outrow=imgRow,outcol=imgCol;
 			    scaling(outrow,outcol,400);
 			    Matrix img=imgResize(auximg,imgRow,imgCol,outrow,outcol);
-
+			    //Matrix img=loadImage(val.c_str(),imgRow,imgCol);
 				/* First  step  segmentation*/
 				Matrix mat_gradient=newDoubleMatrix(outrow,outcol);
 				Matrix mat_or=newDoubleMatrix(outrow,outcol);
@@ -39,13 +39,13 @@ int main(int argc, char const *argv[])
 				Matrix i4=nonmaxsup(mat_gradient,outrow,outcol, mat_or,outrow,outcol, 1.7); //original 1.5
 				IntMatrix final=hysthresh(i4,outrow,outcol,0.34, 0.27); // original 0,23 0,19
 
-			   //WritwResult(final,outrow,outcol);
+	
 				std::string name = std::to_string(name_cont)+".jpg";
-			   	writeImage(final,outrow,outcol,name.c_str());
+			   	//writeImage(final,outrow,outcol,name.c_str());
 			   
 			   //abel img 10 30-30 80
 				int r_min = 11;//10;//33//28
-				int r_max = 45;//25;//54//75
+				int r_max = 40;//25;//54//75
 				//printf("%s\n","cooerdenadas circulo exterior");
 				IntVector pcoor=detectar_circulo(final,outrow,outcol,r_min,r_max,0.1);
 
@@ -65,16 +65,31 @@ float y = imgCol *(auxy/100);
 
 
 float auxr = (outrow * 100)/imgRow;
-float r = (radio_400 * 100)/auxr;*/
+float r = (radio_400 * 100)/auxr;
 
+printf("x %lf  y %lf  r %lf\n",x,y,r);*/
+
+int y1 = reestablecer_escala_x_y(pcoor[1],outrow,imgRow);
+int x1 = reestablecer_escala_x_y(pcoor[0],outcol,imgCol);
+int r1 = reestablecer_escala_radio(pcoor[2],outrow,imgRow);
+//printf("%s\n",name_file);
+std::cout<<name_file<<std::endl;
+printf("externo x=%d  y=%d  r=%d\n",x1,y1,r1);
 ///////////////////////////////////////////
+
+				deleteDoubleMatrix(img,outrow);
+				deleteDoubleMatrix(mat_gradient,outrow);
+				deleteDoubleMatrix(mat_or,outrow);
+				deleteDoubleMatrix(i4,outrow);
+				deleteIntMatrix(final,outrow);
+				
 
 				int fila = pcoor[1]*2;//x
 				int columna = pcoor[0]*2;//y
 				int radio = pcoor[2]*2;//r
 				int fil_col = radio * 2; 
 				scaling(outrow,outcol,800);
-				 Matrix img2=imgResize(auximg,imgRow,imgCol,outrow,outcol);//Matrix img2=loadImage(val.c_str(),imgRow,imgCol);//llamar  cargar imagen en double normal
+				 Matrix img2=imgResize(auximg,imgRow,imgCol,outrow ,outcol);//Matrix img2=loadImage(val.c_str(),imgRow,imgCol);//llamar  cargar imagen en double normal
 				Matrix mat_ojo = newDoubleMatrix(fil_col,fil_col);	
 				int conti = 0;
 				int contj = 0;
@@ -90,21 +105,47 @@ float r = (radio_400 * 100)/auxr;*/
 				Matrix mat_gradient2=newDoubleMatrix(fil_col,fil_col);
 				Matrix mat_or2=newDoubleMatrix(fil_col,fil_col);
 				canny(mat_ojo,mat_gradient2,mat_or2,fil_col,fil_col);
-			    adjgamma(mat_gradient2,fil_col,fil_col,4);  //2.1 detecta borde exterior celular         //gama casia 2.2
-				Matrix i42=nonmaxsup(mat_gradient2,fil_col,fil_col, mat_or2,fil_col,fil_col, 1.5); //original 1.5
-				IntMatrix final2=hysthresh(i42,fil_col,fil_col,0.34, 0.27); // original 0,23 0,19
+			    adjgamma(mat_gradient2,fil_col,fil_col,4.9);  
+				Matrix i42=nonmaxsup(mat_gradient2,fil_col,fil_col, mat_or2,fil_col,fil_col, 1.6); 
+				IntMatrix final2=hysthresh(i42,fil_col,fil_col,0.34, 0.27); 
 
 			   std::string name2 = std::to_string(name_cont+100)+".jpg";
 			   writeImage(final2,fil_col,fil_col,name2.c_str());
 
-			   	//int r_min2 = 5;//radio*0.1;//10;//33//28
-				//int r_max2 = radio-1;//25;//54//75
-				//printf("%s","cooerdenadas circulo inferio\t\t");
-				//IntVector pcoor2=detectar_circulo(final2,fil_col,fil_col,r_min2,r_max2);
-			  
+			   	int r_min2 = round(radio*0.25);//radio15% //radio*0.1;//10;//33//28
+				int r_max2 = radio-round(radio*0.2);//radioexterior//25;//54//75
+				IntVector pcoor2=detectar_circulo(final2,fil_col,fil_col,r_min2,r_max2,0.20);
+				//std::cout<<"radio interio x "<<pcoor2[0]<<"  y "<<pcoor2[1]<<"  r "<<pcoor2[2]<<std::endl;
+			  //68 73 24--img2 radio interno
+			  //550  y 421  r 97 radio externo escala real
+
+
+				int y2 = reestablecer_escala_x_y((fila-radio)+pcoor2[1],outrow,imgRow);
+				int x2 = reestablecer_escala_x_y((columna-radio)+pcoor2[0],outcol,imgCol);
+				int r2 = reestablecer_escala_radio(pcoor2[2],outrow,imgRow);
+				printf("interno  x2=%d  y2=%d  r2=%d\n",x2,y2,r2);
+
 				/*************/
    
+
+
+
+
+
 		name_cont++;
+
+
+
+
+delete[]auximg;
+deleteDoubleMatrix(mat_ojo,fil_col);
+deleteDoubleMatrix(img2,fil_col);
+deleteDoubleMatrix(mat_gradient2,fil_col);
+deleteDoubleMatrix(mat_or2,fil_col);
+deleteDoubleMatrix(i42,fil_col);
+deleteIntMatrix(final2,fil_col);
+
+
             }
         }
         closedir (dir);

@@ -1,0 +1,493 @@
+img15.jpeg
+externo x=273  y=489  r=50
+interno  x2=273  y2=489  r2=14
+img6.jpeg
+externo x=461  y=627  r=77
+interno  x2=461  y2=627  r2=19
+img7.jpeg
+externo x=399  y=832  r=39
+interno  x2=411  y2=832  r2=13
+img14.jpeg
+externo x=222  y=346  r=32
+interno  x2=211  y2=346  r2=8
+img4.jpeg
+externo x=351  y=520  r=74
+interno  x2=359  y2=530  r2=25
+img9.jpeg
+externo x=558  y=550  r=106
+interno  x2=533  y2=550  r2=27
+img20.jpeg
+externo x=236  y=653  r=35
+interno  x2=242  y2=653  r2=15
+img2.jpeg
+externo x=245  y=678  r=39
+interno  x2=252  y2=678  r2=16
+img16.jpeg
+externo x=367  y=478  r=34
+interno  x2=374  y2=478  r2=11
+img12.jpeg
+externo x=390  y=374  r=34
+interno  x2=390  y2=385  r2=11
+img13.jpeg
+externo x=218  y=291  r=50
+interno  x2=211  y2=291  r2=13
+img5.jpeg
+externo x=421  y=550  r=97
+interno  x2=421  y2=550  r2=32
+img3.jpeg
+externo x=413  y=704  r=68
+interno  x2=413  y2=704  r2=23
+img8.jpeg
+externo x=306  y=346  r=27
+interno  x2=306  y2=354  r2=7
+img19.jpeg
+externo x=390  y=489  r=47
+interno  x2=390  y2=489  r2=12
+img11.jpeg
+externo x=539  y=691  r=84
+interno  x2=539  y2=691  r2=21
+img1.jpeg
+externo x=216  y=410  r=34
+interno  x2=205  y2=410  r2=11
+img18.jpeg
+externo x=351  y=499  r=58
+interno  x2=367  y2=489  r2=16
+img17.jpeg
+externo x=398  y=499  r=47
+interno  x2=398  y2=510  r2=16
+img10.jpeg
+externo x=442  y=678  r=74
+interno  x2=432  y2=666  r2=21
+Execution Time(s):: 14.434 s__
+....................................
+
+img15.jpeg
+externo x=273  y=489  r=50
+interno  x2=265  y2=478  r2=20
+img6.jpeg
+externo x=461  y=627  r=77
+interno  x2=451  y2=640  r2=27
+img7.jpeg
+externo x=399  y=832  r=39
+interno  x2=399  y2=845  r2=13
+img14.jpeg
+externo x=222  y=346  r=32
+interno  x2=228  y2=352  r2=8
+img4.jpeg
+externo x=351  y=520  r=74
+interno  x2=359  y2=499  r2=24
+img9.jpeg
+externo x=558  y=550  r=106
+interno  x2=521  y2=512  r2=27
+img20.jpeg
+externo x=236  y=653  r=35
+interno  x2=230  y2=666  r2=16
+img2.jpeg
+externo x=245  y=678  r=39
+interno  x2=252  y2=691  r2=11
+img16.jpeg
+externo x=367  y=478  r=34
+interno  x2=374  y2=489  r2=9
+img12.jpeg
+externo x=390  y=374  r=34
+interno  x2=390  y2=374  r2=13
+img13.jpeg
+externo x=218  y=291  r=50
+interno  x2=203  y2=312  r2=14
+img5.jpeg
+externo x=421  y=550  r=97
+interno  x2=421  y2=529  r2=29
+img3.jpeg
+externo x=413  y=704  r=68
+interno  x2=403  y2=704  r2=19
+img8.jpeg
+externo x=306  y=346  r=27
+interno  x2=306  y2=354  r2=8
+img19.jpeg
+externo x=390  y=489  r=47
+interno  x2=374  y2=499  r2=13
+img11.jpeg
+externo x=539  y=691  r=84
+interno  x2=557  y2=691  r2=23
+img1.jpeg
+externo x=216  y=410  r=34
+interno  x2=221  y2=422  r2=9
+img18.jpeg
+externo x=351  y=499  r=58
+interno  x2=343  y2=489  r2=14
+img17.jpeg
+externo x=398  y=499  r=47
+interno  x2=398  y2=499  r2=12
+img10.jpeg
+externo x=442  y=678  r=74
+interno  x2=422  y2=678  r2=24
+Execution Time(s):: 15.2362 s__
+--------------------:::::::::::::::::::::::::::::::::::::::::----------------
+img15.jpeg
+externo x=156  y=322  r=11
+img6.jpeg
+externo x=470  y=589  r=11
+img7.jpeg
+externo x=411  y=832  r=12
+img14.jpeg
+externo x=311  y=253  r=12
+img4.jpeg
+externo x=484  y=343  r=13
+img9.jpeg
+externo x=679  y=512  r=11
+img20.jpeg
+externo x=236  y=653  r=35
+img2.jpeg
+externo x=115  y=333  r=12
+img16.jpeg
+externo x=390  y=447  r=11
+img12.jpeg
+externo x=390  y=374  r=34
+img13.jpeg
+externo x=484  y=333  r=12
+img5.jpeg
+externo x=190  y=328  r=12
+img3.jpeg
+externo x=778  y=474  r=14
+img8.jpeg
+externo x=289  y=403  r=37
+img19.jpeg
+externo x=507  y=530  r=11
+img11.jpeg
+externo x=539  y=640  r=12
+img1.jpeg
+externo x=265  y=661  r=12
+img18.jpeg
+externo x=320  y=281  r=11
+img17.jpeg
+externo x=109  y=603  r=11
+img10.jpeg
+externo x=797  y=730  r=11
+Execution Time(s):: 46.5133 s__
+img15.jpeg
+externo x=160  y=327  r=11
+img6.jpeg
+externo x=473  y=599  r=11
+img7.jpeg
+externo x=419  y=833  r=12
+img14.jpeg
+externo x=312  y=253  r=12
+img4.jpeg
+externo x=489  y=347  r=13
+img9.jpeg
+externo x=680  y=524  r=11
+img20.jpeg
+externo x=242  y=664  r=35
+img2.jpeg
+externo x=117  y=345  r=12
+img16.jpeg
+externo x=397  y=456  r=11
+img12.jpeg
+externo x=390  y=379  r=34
+img13.jpeg
+externo x=487  y=342  r=12
+img5.jpeg
+externo x=190  y=332  r=12
+img3.jpeg
+externo x=786  y=481  r=14
+img8.jpeg
+externo x=293  y=403  r=37
+img19.jpeg
+externo x=508  y=532  r=11
+img11.jpeg
+externo x=541  y=652  r=12
+img1.jpeg
+externo x=267  y=664  r=12
+img18.jpeg
+externo x=320  y=281  r=11
+img17.jpeg
+externo x=110  y=606  r=11
+img10.jpeg
+externo x=803  y=737  r=11
+Execution Time(s):: 46.3761 s__
+img15.jpeg
+externo x=265  y=489  r=45
+img6.jpeg
+externo x=470  y=627  r=74
+img7.jpeg
+externo x=847  y=602  r=18
+img14.jpeg
+externo x=311  y=246  r=9
+img4.jpeg
+externo x=530  y=208  r=14
+img9.jpeg
+externo x=642  y=538  r=21
+img20.jpeg
+externo x=242  y=666  r=31
+img2.jpeg
+externo x=130  y=333  r=18
+img16.jpeg
+externo x=367  y=478  r=38
+img12.jpeg
+externo x=382  y=374  r=34
+img13.jpeg
+externo x=211  y=291  r=51
+img5.jpeg
+externo x=232  y=296  r=16
+img3.jpeg
+externo x=413  y=704  r=66
+img8.jpeg
+externo x=289  y=403  r=37
+img19.jpeg
+externo x=507  y=530  r=16
+img11.jpeg
+externo x=548  y=691  r=82
+img1.jpeg
+externo x=81  y=764  r=16
+img18.jpeg
+externo x=335  y=260  r=14
+img17.jpeg
+externo x=398  y=499  r=49
+img10.jpeg
+externo x=442  y=666  r=74
+Execution Time(s):: 89.9805 s__
+img15.jpeg
+externo x=273  y=489  r=50
+img6.jpeg
+externo x=461  y=627  r=77
+img7.jpeg
+externo x=399  y=832  r=39
+img14.jpeg
+externo x=222  y=346  r=32
+img4.jpeg
+externo x=351  y=520  r=74
+img9.jpeg
+externo x=558  y=550  r=106
+img20.jpeg
+externo x=236  y=653  r=35
+img2.jpeg
+externo x=245  y=678  r=39
+img16.jpeg
+externo x=367  y=478  r=34
+img12.jpeg
+externo x=390  y=374  r=34
+img13.jpeg
+externo x=218  y=291  r=50
+img5.jpeg
+externo x=421  y=550  r=97
+img3.jpeg
+externo x=413  y=704  r=68
+img8.jpeg
+externo x=306  y=346  r=27
+img19.jpeg
+externo x=390  y=489  r=47
+img11.jpeg
+externo x=539  y=691  r=84
+img1.jpeg
+externo x=216  y=410  r=34
+img18.jpeg
+externo x=351  y=499  r=58
+img17.jpeg
+externo x=398  y=499  r=47
+img10.jpeg
+externo x=442  y=678  r=74
+Execution Time(s):: 9.6166 s__
+img15.jpeg
+externo x=281  y=510  r=58
+img6.jpeg
+externo x=470  y=627  r=80
+img7.jpeg
+externo x=748  y=742  r=93
+img14.jpeg
+externo x=228  y=346  r=37
+img4.jpeg
+externo x=351  y=530  r=68
+img9.jpeg
+externo x=545  y=550  r=107
+img20.jpeg
+externo x=303  y=653  r=73
+img2.jpeg
+externo x=288  y=678  r=80
+img16.jpeg
+externo x=367  y=478  r=63
+img12.jpeg
+externo x=195  y=759  r=68
+img13.jpeg
+externo x=195  y=281  r=74
+img5.jpeg
+externo x=421  y=560  r=100
+img3.jpeg
+externo x=413  y=704  r=73
+img8.jpeg
+externo x=272  y=403  r=54
+img19.jpeg
+externo x=382  y=499  r=63
+img11.jpeg
+externo x=539  y=691  r=87
+img1.jpeg
+externo x=227  y=422  r=82
+img18.jpeg
+externo x=351  y=499  r=58
+img17.jpeg
+externo x=398  y=489  r=63
+img10.jpeg
+externo x=442  y=678  r=73
+Execution Time(s):: 4.7082 s__
+img15.jpeg
+externo x=265  y=489  r=45
+img6.jpeg
+externo x=470  y=627  r=74
+img7.jpeg
+externo x=984  y=640  r=50
+img14.jpeg
+externo x=222  y=346  r=33
+img4.jpeg
+externo x=429  y=364  r=38
+img9.jpeg
+externo x=582  y=589  r=53
+img20.jpeg
+externo x=255  y=653  r=52
+img2.jpeg
+externo x=252  y=678  r=50
+img16.jpeg
+externo x=367  y=478  r=38
+img12.jpeg
+externo x=382  y=374  r=38
+img13.jpeg
+externo x=211  y=291  r=51
+img5.jpeg
+externo x=400  y=560  r=77
+img3.jpeg
+externo x=413  y=704  r=66
+img8.jpeg
+externo x=289  y=403  r=37
+img19.jpeg
+externo x=390  y=489  r=49
+img11.jpeg
+externo x=548  y=691  r=82
+img1.jpeg
+externo x=205  y=410  r=41
+img18.jpeg
+externo x=351  y=499  r=58
+img17.jpeg
+externo x=398  y=499  r=49
+img10.jpeg
+externo x=442  y=666  r=74
+Execution Time(s):: 34.0116 s__
+img15.jpeg
+externo x=203  y=395  r=82
+interno  x2=226  y2=374  r2=21
+img6.jpeg
+externo x=490  y=614  r=100
+interno  x2=461  y2=614  r2=27
+img7.jpeg
+externo x=748  y=730  r=94
+interno  x2=735  y2=742  r2=29
+img14.jpeg
+externo x=133  y=299  r=52
+interno  x2=117  y2=293  r2=13
+img4.jpeg
+externo x=367  y=520  r=84
+interno  x2=359  y2=530  r2=25
+img9.jpeg
+externo x=558  y=550  r=106
+interno  x2=533  y2=550  r2=27
+img20.jpeg
+externo x=255  y=755  r=123
+interno  x2=291  y2=781  r2=32
+img2.jpeg
+externo x=238  y=627  r=103
+interno  x2=216  y2=614  r2=31
+img16.jpeg
+externo x=374  y=499  r=89
+interno  x2=382  y2=499  r2=26
+img12.jpeg
+externo x=203  y=738  r=108
+interno  x2=234  y2=749  r2=28
+img13.jpeg
+externo x=390  y=343  r=76
+interno  x2=413  y2=333  r2=20
+img5.jpeg
+externo x=421  y=550  r=97
+interno  x2=421  y2=550  r2=32
+img3.jpeg
+externo x=739  y=499  r=94
+interno  x2=730  y2=512  r2=27
+img8.jpeg
+externo x=306  y=378  r=63
+interno  x2=284  y2=394  r2=17
+img19.jpeg
+externo x=367  y=458  r=79
+interno  x2=390  y2=447  r2=22
+img11.jpeg
+externo x=566  y=678  r=103
+interno  x2=575  y2=717  r2=26
+img1.jpeg
+externo x=184  y=467  r=100
+interno  x2=216  y2=445  r2=29
+img18.jpeg
+externo x=367  y=499  r=76
+interno  x2=359  y2=489  r2=24
+img17.jpeg
+externo x=413  y=572  r=118
+interno  x2=398  y2=572  r2=30
+img10.jpeg
+externo x=451  y=653  r=94
+interno  x2=432  y2=640  r2=24
+Execution Time(s):: 23.0426 s__
+img15.jpeg
+externo x=273  y=489  r=50
+interno  x2=273  y2=489  r2=14
+img6.jpeg
+externo x=461  y=627  r=77
+interno  x2=461  y2=627  r2=19
+img7.jpeg
+externo x=399  y=832  r=39
+interno  x2=411  y2=832  r2=13
+img14.jpeg
+externo x=222  y=346  r=32
+interno  x2=211  y2=346  r2=8
+img4.jpeg
+externo x=351  y=520  r=74
+interno  x2=359  y2=530  r2=25
+img9.jpeg
+externo x=558  y=550  r=106
+interno  x2=533  y2=550  r2=27
+img20.jpeg
+externo x=236  y=653  r=35
+interno  x2=242  y2=653  r2=15
+img2.jpeg
+externo x=245  y=678  r=39
+interno  x2=252  y2=678  r2=16
+img16.jpeg
+externo x=367  y=478  r=34
+interno  x2=374  y2=478  r2=11
+img12.jpeg
+externo x=390  y=374  r=34
+interno  x2=390  y2=385  r2=11
+img13.jpeg
+externo x=218  y=291  r=50
+interno  x2=211  y2=291  r2=13
+img5.jpeg
+externo x=421  y=550  r=97
+interno  x2=421  y2=550  r2=32
+img3.jpeg
+externo x=413  y=704  r=68
+interno  x2=413  y2=704  r2=23
+img8.jpeg
+externo x=306  y=346  r=27
+interno  x2=306  y2=354  r2=7
+img19.jpeg
+externo x=390  y=489  r=47
+interno  x2=390  y2=489  r2=12
+img11.jpeg
+externo x=539  y=691  r=84
+interno  x2=539  y2=691  r2=21
+img1.jpeg
+externo x=216  y=410  r=34
+interno  x2=205  y2=410  r2=11
+img18.jpeg
+externo x=351  y=499  r=58
+interno  x2=367  y2=489  r2=16
+img17.jpeg
+externo x=398  y=499  r=47
+interno  x2=398  y2=510  r2=16
+img10.jpeg
+externo x=442  y=678  r=74
+interno  x2=432  y2=666  r2=21
+Execution Time(s):: 12.6435 s__
