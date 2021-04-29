@@ -78,11 +78,13 @@ for (int i = 0; i < radpixels; ++i)
 	for (int j = 0; j < angulardiv; ++j)
 	{
 		resultado_ZI[i][j]=resultado_ZI[i][j]/255;
-		//printf("%lf\n",resultado_ZI[i][j] );
+
 	}
 }
-
-
+deleteIntMatrix(x,row_image);
+deleteIntMatrix(y,row_image);
+deleteDoubleMatrix(xo,radpixels);
+deleteDoubleMatrix(yo,radpixels);
 return resultado_ZI;
 
 }

@@ -27,12 +27,14 @@ void deleteDoubleMatrix(Matrix mat, int row){
 	** row: número de filas que tiene la matriz
 	** Nota: Esta función libera la memoria ocupada por el apuntador.
 	*/
-	for (int i = 0; i < row; ++i)
+	for (short int i = 0; i < row; ++i)
 	{
 		delete[]mat[i];
+		mat[i]=nullptr;
 	}
 
 	delete[]mat;
+	mat=nullptr;
 }
 void deleteDoubleVector(Vector vect){
 	/* 
@@ -40,6 +42,7 @@ void deleteDoubleVector(Vector vect){
 	** Esta función libera memoria del apuntador tipo vector
 	*/
 	delete[] vect;
+	vect=nullptr;
 }
 
 Vector newDoubleVector(int length,double value=0){
@@ -82,18 +85,15 @@ Matrix newDoubleMatrix(int row, int col, double value=0){
 	** Nota: Esta funcion devuelve 
 	*/
 	Matrix vect=new double*[row];
-	for (int i = 0; i < row; ++i)
+	for (short int i = 0; i < row; ++i)
 	{
 		vect[i]=new double[col];
-	}
-
-	for (int i = 0; i < row; ++i)
-	{
-		for (int j= 0; j < col; ++j)
+		for (short int j= 0; j < col; ++j)
 		{
 			vect[i][j]=value;
 		}
 	}
+
 return vect;
 
 }
@@ -109,9 +109,9 @@ double convulse(Matrix img, Matrix gaussian,int i,int j,int length){
 	*/
 	double sum=0.0;
 	int rowG=0,colG=0;
-		for (int row = i; row < length+i; row++)
+		for (short int row = i; row < length+i; row++)
 	{
-		for (int col = j; col < length+j; col++)
+		for (short int col = j; col < length+j; col++)
 		{
 			sum=sum+(img[row][col]*gaussian[rowG][colG]);	
 			colG++;
@@ -171,9 +171,9 @@ Matrix transpose(Matrix mat, int sizeRow, int sizeCol){
 	** Nota: esta función devuelve una matriz transpuesta
 	*/
 	Matrix trans=newDoubleMatrix(sizeCol, sizeRow);
-	for (int i = 0; i < sizeRow; ++i)
+	for (short int i = 0; i < sizeRow; ++i)
 	{
-		for (int j = 0; j < sizeCol; ++j)
+		for (short int j = 0; j < sizeCol; ++j)
 		{
 			trans[j][i]=mat[i][j];
 		}
@@ -214,67 +214,13 @@ Matrix getDoubleRows(Matrix img, int i, int sizeRow){
 	return rows;
 }
 
-// Matrix FFT(Matrix img, int row, int col){
-	
-// 	for (int i = 0; i < row; ++i)
-// 	{
-// 		for (int j = 0; j < col; ++j)
-// 		{
-			
-// 		}
-// 	}
-
-// }
-Vector mat2vectD(Matrix mat, int sizerow, int sizecol ){
-	/*
-	** mat: Matriz 2-D que contiene datos que van a ser pasados a un vector 1-D
-	** sizerow: Número de filas de la matriz
-	** sizecol: Número de columnas de la matriz
-	** NOTA: Esta función retorna un vector con todos los datos de la matriz (Mathlab: matriz(:))  
-	*/
-	int length=sizecol*sizerow;
-	Vector vect=newDoubleVector(length);
-	int cont=0;
-	for (int i = 0; i < sizecol; ++i)
-	{
-		for (int j = 0; j < sizerow; j++)
-		{
-			*(vect+cont)=*(*(mat+j)+i);
-			cont++;
-		}
-	}
-
-	return vect;
-
-}
-
-Matrix vect2matD(Vector vect,int sizeVect, int nCols){
-	/*
-	** vect: Vector 1-D que tiene los datos que van a ser colocados en una matriz 2-D
-	** sizeVect: Tamaño del vector de datos.
-	** nCols: El número de columnas que se necesita
-	** NOTA: Esta función retorna una matriz transpuesta.
-	*/
-	Matrix mat;
-	int nrows=nCols,cont=0;
-	if (sizeVect % nCols==0)
-	{
-		nCols=sizeVect/nrows;
-		mat=newDoubleMatrix( nrows,nCols);
-		for (int i = 0; i < nCols; i++)
-		{
-			for (int j = 0; j < nrows; j++)
-			{
-				*(*(mat+j)+i)=*(vect+cont);
-				cont++;
-			}
-
-		}
-	}
-	return mat;
-}
-
 Matrix loadImage(char const *nombre_img, int &sizeImgRow,int &sizeImgCol){
+	/*
+	** nombre_img: La ruta de la imgen a leer, incluido el nombre
+	** sizeImgRow: variable que va a almacenar el numero de filas
+	** sizeImgCol: variable que va a almacenar el número de columnas
+	** Nota: Esta función retorna una matriz double con los datos de la imagen.
+	*/
 	int n;
 	unsigned char *data = stbi_load(nombre_img, &sizeImgCol, &sizeImgRow, &n, 1);
 	Matrix img=newDoubleMatrix(sizeImgRow,sizeImgCol);
@@ -291,44 +237,144 @@ Matrix loadImage(char const *nombre_img, int &sizeImgRow,int &sizeImgCol){
 
 	return img;
 
-} 
+}
 
-float *loadImage2(char const *nombre_img, int &sizeImgRow,int &sizeImgCol){
-	int n;
-	unsigned char *data = stbi_load(nombre_img, &sizeImgCol, &sizeImgRow, &n, 1);
-	float *img=new float[sizeImgRow*sizeImgCol];
-	//int cont=0;
+void loadImage2(char const *nombre_img, int &sizeImgRow,int &sizeImgCol,float *&img, Matrix &img2){
+	/*
+	** nombre_img: La ruta de la imgen a leer, incluido el nombre
+	** sizeImgRow: variable que va a almacenar el numero de filas
+	** sizeImgCol: variable que va a almacenar el número de columnas
+	** img: Vector de tipo float, donde se va a carga la imagen
+	** img2: Matriz de tipo double donde se va a cargar la imagen.
+	** Nota: Esta función retorna una matriz double con los datos de la imagen, también, retorna
+	**       un vector de tipo double con los datos de la imagen.
+	*/
+    int n;
+    unsigned char *data = stbi_load(nombre_img, &sizeImgCol, &sizeImgRow, &n, 1);
+    img=new float[sizeImgRow*sizeImgCol];
+    img2=newDoubleMatrix(sizeImgRow,sizeImgCol);
+    int row=0,col=0;
 
-	for (int i=0;i<sizeImgRow*sizeImgCol;i++){
-	  img[i]=float(data[i]);
+    for (int i=0;i<sizeImgRow*sizeImgCol;i++){
+        img[i]=float(data[i]);
+        if(col==sizeImgCol){
+            col=0;
+            row++;
+        }
+        img2[row][col]=double(data[i]);
+        col++;
+    }
+    stbi_image_free(data);
+}
+
+//--------------------------------------------------
+Vector float2Double(float * vect,int length){
+	/*
+	** vect: vector de tipo float
+	** length: tamaño del vector
+	** Nota: esta función retorna un vector de tipo double.
+	*/
+	Vector result=newDoubleVector(length);
+	for(int i=0;i<length;i++){
+		result[i]=double(vect[i]);
 	}
+	return result;
+}
 
-	stbi_image_free(data);
-
-	return img;
-
-} 
-
-char  *int2char(int **data, int row, int col){
-	char *img=new char[row*col];
+Matrix vect2matN(Vector vect,int nRow ,int nCols){
+	/*
+	** vect: vector que contiene los datos
+	** nRow: número de filas de la matriz
+	** nCols: número de columnas de la matriz
+	** Nota: esta función retorna una matriz de tipo double con los datos del vector de entrada.
+	*/
+	Matrix mat=newDoubleMatrix(nRow,nCols);
 	int cont=0;
-	for (int i = 0; i < row; ++i)
+	for (short int i = 0; i < nRow; ++i)
 	{
-		for (int j = 0; j < col; ++j)
+		for (short int j = 0; j < nCols; ++j)
 		{
-			img[cont]=char(data[i][j]*255);
+			mat[i][j]=vect[cont];
 			cont++;
 		}
-		/* code */
 	}
-	return img;
+
+	return mat;
+}
+
+Matrix imgResize(float *img, int row,int col,int outrow,int outcol){
+	/*
+	** img: vector con los datos de la imagen
+	** row: número de filas de la imagen original
+	** col: número de columnas de la imagen orifinal
+	** outrow: número de filas de la imagen redimensionada
+	** outcol: número de columnas de la imagen redimensionada
+	** Nota: Esta función retorna una matriz de tipo double con la imagen redimensionada.
+	*/
+	float *result=new float[outrow*outcol];
+	stbir_resize_float(img,col,row,0,result,outcol,outrow,0,1);
+	Vector aux2=float2Double(result,outrow*outcol);
+	Matrix resize=vect2matN(aux2,outrow,outcol);
+	deleteDoubleVector(aux2);
+	stbi_image_free(result);
+	return resize;
+}
+
+Vector mat2vectD(Matrix mat, int sizerow, int sizecol ){
+	/*
+	** mat: Matriz 2-D que contiene datos que van a ser pasados a un vector 1-D
+	** sizerow: Número de filas de la matriz
+	** sizecol: Número de columnas de la matriz
+	** NOTA: Esta función retorna un vector con todos los datos de la matriz (Mathlab: matriz(:))
+	*/
+	int length=sizecol*sizerow;
+	Vector vect=newDoubleVector(length);
+	int cont=0;
+	for (short int i = 0; i < sizecol; ++i)
+	{
+		for (short int j = 0; j < sizerow; j++)
+		{
+			*(vect+cont)=*(*(mat+j)+i);
+			cont++;
+		}
+	}
+
+	return vect;
 
 }
 
-void writeImage(int **img, int row, int col,const char* name){
-	char *imgs=int2char(img,row,col);
-	stbi_write_jpg(name,col,row,1,imgs,100);
-	stbi_image_free(imgs);
+void writeCsvEncode( Matrix img, int row, int col,int label=0){
+	/*
+	** img: Matriz con los datos de la imagen
+	** row: número de filas de la imagen
+	** col: número de columnas de la imagen
+	** label: etiqueta(nombre) con la se va a crear el archivo csv
+	** Esta función escribe un archivo csv en la memoria interna del dispositivo
+	*/
+
+	std::string path="";
+	if (label!=0){
+		path="/home/leonel/Documentos/cpp/feature.txt";
+	}else{
+		path="/home/leonel/Documentos/cpp/test.txt";
+	}
+	std::ofstream fichero;
+	if(label==0){
+		fichero.open(path);
+	}else{
+		fichero.open(path,std::ios_base::app);
+	}
+
+	Vector vectImg=mat2vectD(img,row,col);
+	int cont=1;
+    fichero<<std::to_string(label)<<",";
+	for (int i=0;i<row*col;i++){
+			fichero << cont<<":"<<vectImg[i] <<",";
+			cont++;
+	}
+	fichero<<std::endl;
+	fichero.close();
+	deleteDoubleMatrix(img,row);
 
 }
 
@@ -352,62 +398,28 @@ void printVector(Vector v,int length){
 	}
 
 }
+char  *int2char(int **data, int row, int col){
+    char *img=new char[row*col];
+    int cont=0;
+    for (int i = 0; i < row; ++i)
+    {
+        for (int j = 0; j < col; ++j)
+        {
+            img[cont]=char(data[i][j]*255);
+            cont++;
+        }
+        
+    }
+    return img;
 
-
-float * double2float(Vector vect,int length){
-	float * result=new float[length];
-   for (int i = 0; i < length; ++i)
-   {
-   		result[i]=float(vect[i]);
-   }
-   return result;
-}
-//--------------------------------------------------
-Vector float2Double(float * vect,int length){
-  	Vector result=newDoubleVector(length);
-  	for(int i=0;i<length;i++){
-  		result[i]=double(vect[i]);
-  	}
-  	return result;
 }
 
-Matrix vect2matN(Vector vect,int nRow ,int nCols){
-	
-	Matrix mat=newDoubleMatrix(nRow,nCols);
-	int cont=0;
-	for (int i = 0; i < nRow; ++i)
-	{
-		for (int j = 0; j < nCols; ++j)
-		{
-			mat[i][j]=vect[cont];
-			cont++;
-		}
-	}
+void writeImageJPG(int **img, int row, int col, const char* name){
+    char *imgs=int2char(img,row,col);
+    stbi_write_jpg(name,col,row,1,imgs,100);
+    stbi_image_free(imgs);
 
-	return mat;
 }
 
-Matrix imgResize(float *img, int row,int col,int outrow,int outcol){
-	float *result=new float[outrow*outcol];
-	stbir_resize_float(img,col,row,0,result,outcol,outrow,0,1);
-    Vector aux2=float2Double(result,outrow*outcol);
-	Matrix resize=vect2matN(aux2,outrow,outcol);
-	deleteDoubleVector(aux2);
-	stbi_image_free(result);
-	return resize;
-}
-// void printResult(Matrix mat){
-// 	std::ofstream fichero("test.csv");
-// 	     for (int i = 0; i < int(mat.size()); ++i)
-// 	     {
-// 	     	for (int j = 0; j < int(mat[0].size()); ++j)
-// 	     	{
-// 	     		fichero << mat[i][j] <<",";
-// 	     	}
-// 	     	fichero << std::endl;
-// 	     }
-		 
-// 		 mat.clear();
-// 		printf("Impresion finalizado ......");
-//         fichero.close();
-// }
+
+

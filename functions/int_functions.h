@@ -10,37 +10,20 @@ typedef int **IntMatrix;
 typedef int *IntVector;
 typedef int ***IntMatrix3D;
 void WritwResult(IntMatrix ,int , int );
-
-void scaling(int &row, int &col, int maxscal){
-    float p=0.0; 
-	if (row>col)
-	{
-		p=(100*maxscal)/row;
-		row=maxscal;
-		col=round(col*(p/100));
-	}else if (col>row)
-	{
-		p=(100*maxscal)/col;
-		col=maxscal;
-		row=round(row*(p/100));
-	}else if (col==row)
-	{
-		row=maxscal;
-		col=maxscal;
-	}
-}
 void deleteIntMatrix(IntMatrix mat, int row){
 	/*
 	** Mat: matriz de tipo double que va ser liberado de memoria.
 	** row: número de filas que tiene la matriz
 	** Nota: Esta función libera la memoria ocupada por el apuntador.
 	*/
-	for (int i = 0; i < row; ++i)
+	for (short int i = 0; i < row; ++i)
 	{
 		delete[]mat[i];
+		mat[i]=nullptr;
 	}
 
 	delete[]mat;
+	mat=nullptr;
 }
 void deleteIntVector(IntVector vect){
 	/* 
@@ -48,6 +31,7 @@ void deleteIntVector(IntVector vect){
 	** Esta función libera memoria del apuntador tipo vector
 	*/
 	delete[] vect;
+	vect=nullptr;
 }
 
 IntVector newIntVector(int length,int value=0){
@@ -90,24 +74,26 @@ IntMatrix newIntMatrix(int row, int col, int value=0){
 	** Nota: Esta funcion devuelve 
 	*/
 	IntMatrix vect=new int *[row];
-	for (int i = 0; i < row; ++i)
+	for (short int i = 0; i < row; ++i)
 	{
 		vect[i]=new int[col];
-	}
-
-	for (int i = 0; i < row; ++i)
-	{
-		for (int j= 0; j < col; ++j)
+		for (short int j= 0; j < col; ++j)
 		{
 			vect[i][j]=value;
 		}
 	}
+
 return vect;
 
 }
 
 
 IntMatrix fillIntMatriz(int rows, int cols, double **data, int startrow=0, int startcol=0){
+	/*
+	** start: valor inicial
+	** end: valor final
+	** Nota: esta función retorna un vector double llenado con los valores dentro de rango start - end
+	*/
 	IntMatrix result=newIntMatrix(rows,cols);
 
 	for (int i = startrow; i < rows+startrow; ++i)
@@ -121,6 +107,12 @@ IntMatrix fillIntMatriz(int rows, int cols, double **data, int startrow=0, int s
 }
 
 IntVector Intdiff(IntVector vect, int length){
+	/*
+	** vect: vector de datos
+	** length: tamaño del vector
+	** Nota: Esta función retorna un vector con los valores de las diferencias de los elementos del 
+	**       vector de entrada,
+	*/
 	IntVector result=newIntVector(length-1);//REDUCIR -1
 	int aux=0;
 	for (int i = 0; i <length-1; ++i)
@@ -143,9 +135,9 @@ void Intdiff2(IntVector vect, int length, IntMatrix &mat, int sizeRow, int sizeC
 	*/
 	IntVector diff=Intdiff(vect,length);
     int index=1;
-	for (int i = 0; i < sizeRow; ++i)
+	for (short int i = 0; i < sizeRow; ++i)
 	{
-		for (int j = 0; j < sizeCol; ++j)
+		for (short int j = 0; j < sizeCol; ++j)
 		{
 			for (int z = 0; z < length; ++z)
 			{
@@ -165,11 +157,14 @@ void Intdiff2(IntVector vect, int length, IntMatrix &mat, int sizeRow, int sizeC
 }
 
 IntMatrix lookup(IntVector vect, double **mat, int sizeRow, int sizeCol,int vectLength){
+	/*
+	**Referencia: https://octave.sourceforge.io/octave/function/lookup.html
+	*/
 	IntMatrix result=newIntMatrix(sizeRow,sizeCol);
 	int dato;  //dato;
-	for (int i = 0; i < sizeRow; ++i)
+	for (short int i = 0; i < sizeRow; ++i)
 	{
-		for (int j = 0; j < sizeCol; ++j)
+		for (short int j = 0; j < sizeCol; ++j)
 		{	dato=0;
 			for (int k = 0; k < vectLength; ++k) // k=1, veclength-1
 			{
@@ -185,10 +180,18 @@ IntMatrix lookup(IntVector vect, double **mat, int sizeRow, int sizeCol,int vect
 }
 
 void meshgrid(IntMatrix  &X, IntMatrix &Y, int row, int col){
+	/*
+	** X: es una matriz en la que cada fila es una copia de x.
+	** Y: es una matriz en la que cada columna es una copia de y
+	** row: número de filas de las matrices
+	** col: número de columnas de las matrices
+	** Nota: devuelve coordenadas de cuadrícula 2-D basadas en las coordenadas contenidas en los vectores x y y.
+	** Referencia: https://es.mathworks.com/help/matlab/ref/meshgrid.html
+	*/
 
-	for (int i = 0; i < row; ++i)
+	for (short int i = 0; i < row; ++i)
 	{
-		for (int j = 0; j < col; ++j)
+		for (short int j = 0; j < col; ++j)
 		{
 			X[i][j]=j+1;
 			Y[i][j]=i+1;
@@ -207,9 +210,9 @@ IntVector mat2vect(IntMatrix mat, int sizerow, int sizecol ){
 	int length=sizecol*sizerow;
 	IntVector vect=newIntVector(length);
 	int cont=0;
-	for (int i = 0; i < sizecol; ++i)
+	for (short int i = 0; i < sizecol; ++i)
 	{
-		for (int j = 0; j < sizerow; j++)
+		for (short int j = 0; j < sizerow; j++)
 		{
 			*(vect+cont)=*(*(mat+j)+i);
 			cont++;
@@ -270,9 +273,9 @@ IntMatrix vect2mat(IntVector vect,int sizeVect, int nCols){
 	{
 		nCols=sizeVect/nrows;
 		mat=newIntMatrix( nrows,nCols);
-		for (int i = 0; i < nCols; i++)
+		for (short int i = 0; i < nCols; i++)
 		{
-			for (int j = 0; j < nrows; j++)
+			for (short int j = 0; j < nrows; j++)
 			{
 				*(*(mat+j)+i)=*(vect+cont);
 				cont++;
@@ -320,9 +323,9 @@ void  valInd(IntVector vect, int length , IntMatrix &mat, int row, int col){
 	** col: número de columnas de la matriz
 	** Nota: esta función retorna una matriz con los valores encontrados en el vector de acuerdo al indice de la matriz
 	*/
-	for (int i = 0; i < row; ++i)
+	for (short int i = 0; i < row; ++i)
 	{
-		for (int j = 0; j < col; j++)
+		for (short int j = 0; j < col; j++)
 		{
 			int index=1;
 			for (int z = 0; z < length; ++z)
@@ -346,9 +349,9 @@ IntMatrix cpIntMatrix(IntMatrix mat, int row, int col){
 	** Nota: Esta función retorna la una copia de la matriz mat.
 	*/
 	IntMatrix result=newIntMatrix(row,col);
-	for (int i = 0; i < row; ++i)
+	for (short int i = 0; i < row; ++i)
 	{
-		for (int j = 0; j < col; ++j)
+		for (short int j = 0; j < col; ++j)
 		{
 			result[i][j]=mat[i][j];
 		}
@@ -359,18 +362,87 @@ IntMatrix cpIntMatrix(IntMatrix mat, int row, int col){
 }
 
 void deleteIntMatrix3D(short int*** mat, int row, int col){
+	/*
+	** mat: matriz a liberar memoria
+	** row: número de filas de la matriz
+	** col: número de columnas de la matriz
+	** Nota: esta función libera memoria del puntero matriz 3d
+	*/
 	for (short int i = 0; i < row; ++i)
 	{
 		for (short int j = 0; j < col; ++j)
 		{
 			delete[]mat[i][j];
+			mat[i][j]=nullptr;
 		}
 
 		delete[]mat[i];
+		mat[i]=nullptr;
 	}
 
 	delete[]mat;
+	mat=nullptr;
 
+}
+
+void resizeExternalCoor(int &rx, int &ry,int &r,int imgCol,int outcol, int imgRow,int outrow,int* pcoor){
+	/*
+	** rx, ry, r : Variables donde se va a almacenar los resultados
+	** imgCol: Valor del número de columnas de la imagen original
+	** imgRow: valor del numero de filas de la imagen oru¿iginal
+	** outcol: valor del número de columnas de la imagen redimensionada
+	** outrow: valor del número de filas de la imagen redimensionada
+	** pcoor: vector que contien las coodenadas x, y, r.
+	** Nota: Esta función cálcula los valores x,y,r a la escala original.
+	*/
+	double auxcol=(1+(double)(imgCol- outcol)/outcol);
+	double auxrow=1+(double)(imgRow - outrow)/outrow;
+	rx=pcoor[0]*auxcol; //se incremento 3px
+	ry=pcoor[1]*auxrow;
+	r=(double)auxcol*pcoor[2];
+}
+
+void resizeInternalCoor(int &rx2, int &ry2,int &r2,int imgCol,int outcol, int imgRow,int outrow,int* pcoor2,int columna, int fila, int radio){
+	/*
+	** rx2, ry2, r2 : Variables donde se va a almacenar los resultados
+	** imgCol: Valor del número de columnas de la imagen original
+	** imgRow: valor del numero de filas de la imagen oru¿iginal
+	** outcol: valor del número de columnas de la imagen redimensionada
+	** outrow: valor del número de filas de la imagen redimensionada
+	** pcoor2: vector que contien las coodenadas x, y, r.
+	** Nota: Esta función cálcula los valores x,y,r a la escala original.
+	*/
+	double auxcol=(1+(double)(imgCol- outcol)/outcol);
+	double auxrow=1+(double)(imgRow - outrow)/outrow;
+	r2=(double)auxcol*(pcoor2[2])+2;
+	rx2=((columna-radio)+pcoor2[0])*auxcol;
+	ry2=((fila-radio)+pcoor2[1])*auxrow;
+}
+
+void scaling(int &row, int &col, int maxscal){
+	/*
+	** row: Número de filas de la imagen original
+	** col: Número de columnas de la imagen original
+	** maxscal: La escala maxima de la imagen
+	** Nota: Esta función cálcula los valores de las filas y columnas a las cuales se va a redimensionar
+	**		 la imagen.
+	*/
+	float p=0.0;
+	if (row>col)
+	{
+		p=(100*maxscal)/row;
+		row=maxscal;
+		col=round(col*(p/100));
+	}else if (col>row)
+	{
+		p=(100*maxscal)/col;
+		col=maxscal;
+		row=round(row*(p/100));
+	}else if (col==row)
+	{
+		row=maxscal;
+		col=maxscal;
+	}
 }
 
 /* Funciones temporales solo con funes de ver los resultados*/
@@ -397,7 +469,7 @@ void printIntVector(IntVector vect, int length){
 }
 
 void WritwResult(IntMatrix mat,int row, int col){
-	std::ofstream fichero("test.csv");
+	std::ofstream fichero("/storage/emulated/0/IrisAuthentication/data/test.csv");
 	     for (int i = 0; i < row; ++i)
 	     {
 	     	for (int j = 0; j < col; ++j)
@@ -407,12 +479,13 @@ void WritwResult(IntMatrix mat,int row, int col){
 	     	fichero << std::endl;
 	     }
 		 
-		printf("Impresion finalizado ......");
+		//printf("Impresion finalizado ......");
         fichero.close();
 }
 
+
 void WritwResult2(double **mat,int row, int col){
-	std::ofstream fichero("test.csv");
+	std::ofstream fichero("/storage/emulated/0/IrisAuthentication/data/test.csv");
 	     for (int i = 0; i < row; ++i)
 	     {
 	     	for (int j = 0; j < col; ++j)
@@ -422,7 +495,7 @@ void WritwResult2(double **mat,int row, int col){
 	     	fichero << std::endl;
 	     }
 		 
-		printf("Impresion finalizado ......");
+	   //	printf("Impresion finalizado ......");
         fichero.close();
 }
 
@@ -441,14 +514,36 @@ void WritwResultV(int *mat,int row){
         fichero.close();
 }
 
-int reestablecer_escala_x_y(int valordePcoor,int tam_filcol_matredim,int  tam_filcol_matreOriginal){
-	float auxx = (valordePcoor * 100)/tam_filcol_matredim;	
-	float x = round(tam_filcol_matreOriginal * (auxx/100));
-	return int(x);
+
+void paintCircle(Matrix &img,int row, int col, int x, int y,int x2, int y2, int r1, int r2){
+	for (int i = 1; i < 361; ++i)
+	{
+		int xdash1=round(r1*cos(i));
+		int ydash1=round(r1*sin(i));
+
+		int xdash2=round(r2*cos(i));
+		int ydash2=round(r2*sin(i));
+
+		if (((x+xdash1)<col)&&((x+xdash1)>0)&&((y+ydash1)<row)&&((y+ydash1)>0)){
+			img[y+ydash1][x+xdash1]=double(255);
+		}
+
+
+		if (((x2+xdash2)<col)&&((x2+xdash2)>0)&&((y2+ydash2)<row)&&((y2+ydash2)>0)){
+			img[y2+ydash2][x2+xdash2]=double(255);
+		}
+	}
+
 }
 
-int reestablecer_escala_radio(int radioPcoor,int tam_fil_matredim,int tam_fil_Matoriginal){
-	float auxr = (tam_fil_matredim * 100)/tam_fil_Matoriginal;
-	float r = round((radioPcoor * 100)/auxr);
-	return int(r);
+int** double2Int(Matrix img, int row, int col){
+	IntMatrix mat=newIntMatrix(row,col);
+	for (int i = 0; i < row; ++i)
+	{
+		for (int j = 0; j < col; ++j)
+		{
+			mat[i][j]=int(img[i][j]);
+		}
+	}
+	return mat;
 }

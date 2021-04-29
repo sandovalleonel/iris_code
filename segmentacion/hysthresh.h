@@ -90,6 +90,7 @@ for (int i = 0; i < rc; ++i)
 	index_row++;
 
 }
+pix.clear(); 
 
 deleteDoubleVector(bw);
 deleteIntVector(stack);

@@ -2,7 +2,7 @@
 /*
 ingresar la matriz im columnas par
 */
-void gaborconvolve(double **im,int row_im,int col_im,int nscale,double minWaveLength,double mult,double sigmaOnf)
+void gaborconvolve(double **im,int row_im,int col_im,int nscale,double minWaveLength,double mult,double sigmaOnf,int label=0)
 {
 
 int ndata = col_im;
@@ -118,27 +118,29 @@ for (int i = 0; i <row_im ; ++i)
 
 
 
-
+deleteDoubleMatrix(H1,row_im);
+deleteDoubleMatrix(H2,row_im);
 
 }
 
 
 
 ///imprecion de la plantilla
+deleteDoubleVector(logGabor);
+writeCsvEncode(plantilla,row_im,length,label);
 
-int contador = 1;
+/*int contador = 1;
 printf("2\t");
 for (int i = 0; i < row_im; ++i)
 {
 	for (int j = 0; j <length; ++j)	{
 
-		//if (int(plantilla[i][j]) == 1)
 			printf("%d:%.0f\t",contador , plantilla[i][j]);
 
 	contador++;
 		
 	}
-}printf("\n");
+}printf("\n");*/
 
 
 }
